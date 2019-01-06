@@ -33,6 +33,12 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @Column(name = "invoice_status")
+    private Integer invoiceStatus;
+
+    @Column(name = "note")
+    private String note;
+
     public Integer getOrderId() {
         return orderId;
     }
@@ -63,5 +69,29 @@ public class Order {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public ZonedDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(ZonedDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public Integer getInvoiceStatus() {
+        return invoiceStatus;
+    }
+
+    public void setInvoiceStatus(Integer invoiceStatus) {
+        this.invoiceStatus = invoiceStatus;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

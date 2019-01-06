@@ -8,12 +8,19 @@ import org.springframework.stereotype.Service;
 @Service("productService")
 public class ProductService {
 
+    public static Iterable<Product> products;
 
     @Autowired
     private ProductRepository productRepository;
 
-    public Iterable<Product> all(){
-        return productRepository.findAll();
+    public Iterable<Product> all() {
+        if( this.products != null && products.iterator().next() != null){
+            System.out.println("cache...");
+            return this.products;
+        }else {
+            this.products = productRepository.findAll();
+        }
+        return this.products;
     }
 
     public Iterable<Product> get(){
