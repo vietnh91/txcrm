@@ -16,12 +16,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @PostMapping("")
+    @PostMapping("/filter")
     public @ResponseBody Iterable<Product> all() {
         return productService.all();
     }
 
-    @GetMapping("")
+    @GetMapping("/get")
     public @ResponseBody Iterable<Product> get() {
         return productService.get();
     }

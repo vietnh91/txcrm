@@ -19,4 +19,8 @@ public class OrderService {
         return orderRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "orderId")));
     }
 
+    public Order create(Order order){
+        return orderRepository.save(order);
+    }
+
 }
