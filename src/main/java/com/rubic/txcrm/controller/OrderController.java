@@ -18,13 +18,20 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/filter")
-    public @ResponseBody Iterable<Order> all() {
-        return orderService.filter(0, 10);
+    public @ResponseBody Iterable<Order> filter(@RequestBody Condition condition) {
+
+        return orderService.filter(condition.getPage(), condition.getSize());
     }
 
-    @PostMapping("/create")
-    public @ResponseBody Order create(@RequestBody Order order) {
-        return orderService.create(order);
+    @PostMapping("/count")
+    public @ResponseBody Long count(@RequestBody Condition condition) {
+
+        return orderService.count();
+    }
+
+    @PostMapping("/save")
+    public @ResponseBody Order save(@RequestBody Order order) {
+        return orderService.save(order);
     }
 
 }

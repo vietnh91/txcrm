@@ -3,6 +3,7 @@ package com.rubic.txcrm.model;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -11,14 +12,14 @@ public class Order {
 
     @Id
     @Column(name = "order_id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer orderId;
 
     @Column(name = "order_code")
     private String orderCode;
 
     @Column(name = "order_date")
-    private ZonedDateTime orderDate;
+    private Date orderDate;
 
     @OneToMany(
             cascade = CascadeType.ALL,
@@ -38,6 +39,9 @@ public class Order {
 
     @Column(name = "note")
     private String note;
+
+    @Column(name = "shipping_address")
+    private String shippingAddress;
 
     public Integer getOrderId() {
         return orderId;
@@ -71,11 +75,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public ZonedDateTime getOrderDate() {
+    public Date getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(ZonedDateTime orderDate) {
+    public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -93,5 +97,13 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }
