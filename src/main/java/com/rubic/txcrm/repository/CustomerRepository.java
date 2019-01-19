@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
-    @Query(value = "SELECT c.* FROM tx_customer c WHERE c.customer_name like %:customerName% order by customer_id LIMIT :page, :size",
+    @Query(value = "SELECT c.* FROM tx_customer c " +
+            " WHERE c.customer_name like %:customerName% " +
+            " order by customer_id LIMIT :page, :size",
             nativeQuery = true)
     Iterable<Customer> findByCustomerNameContaining(
             @Param("customerName") String customerName,

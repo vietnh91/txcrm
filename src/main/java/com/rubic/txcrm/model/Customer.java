@@ -14,9 +14,6 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
 
-    @Column(name = "address")
-    private String address;
-
     public Integer getCustomerId() {
         return customerId;
     }
@@ -33,11 +30,11 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerId=" + customerId +
+                ", customerName='" + customerName + '\'' +
+                '}';
     }
 }

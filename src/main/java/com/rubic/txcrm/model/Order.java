@@ -1,7 +1,6 @@
 package com.rubic.txcrm.model;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,8 +39,11 @@ public class Order {
     @Column(name = "note")
     private String note;
 
-    @Column(name = "shipping_address")
-    private String shippingAddress;
+    @OneToOne(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            optional = false)
+    @JoinColumn(name = "ship_id")
+    private Address ship;
 
     public Integer getOrderId() {
         return orderId;
@@ -99,11 +101,25 @@ public class Order {
         this.note = note;
     }
 
-    public String getShippingAddress() {
-        return shippingAddress;
+    public Address getShip() {
+        return ship;
     }
 
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
+    public void setShip(Address ship) {
+        this.ship = ship;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderId=" + orderId +
+                ", orderCode='" + orderCode + '\'' +
+                ", orderDate=" + orderDate +
+                ", orderItems=" + orderItems +
+                ", customer=" + customer +
+                ", invoiceStatus=" + invoiceStatus +
+                ", note='" + note + '\'' +
+                ", ship=" + ship +
+                '}';
     }
 }

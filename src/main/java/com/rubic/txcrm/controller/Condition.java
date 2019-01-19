@@ -2,9 +2,19 @@ package com.rubic.txcrm.controller;
 
 public class Condition {
 
+
+    private Integer customerId;
     private String customerName;
     private Integer page;
     private Integer size;
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
 
     public String getCustomerName() {
         return customerName;

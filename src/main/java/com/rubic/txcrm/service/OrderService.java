@@ -1,9 +1,7 @@
 package com.rubic.txcrm.service;
 
-import com.rubic.txcrm.model.Customer;
-import com.rubic.txcrm.model.Order;
-import com.rubic.txcrm.model.OrderItem;
-import com.rubic.txcrm.model.Product;
+import com.rubic.txcrm.model.*;
+import com.rubic.txcrm.repository.AddressRepository;
 import com.rubic.txcrm.repository.CustomerRepository;
 import com.rubic.txcrm.repository.OrderRepository;
 import com.rubic.txcrm.repository.ProductRepository;
@@ -31,6 +29,9 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
     public Iterable<Order> filter(int page, int size){
 
         return orderRepository.findAll(PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "orderId")));
@@ -43,23 +44,38 @@ public class OrderService {
 
     public Order save(Order order){
         Customer customer = order.getCustomer();
+        Address ship = order.getShip();
+
         if(customer != null && customer.getCustomerId() != null) {
-            Optional<Customer> byId = customerRepository.findById(customer.getCustomerId());
-            Customer updateCustomer = byId.get();
-            updateCustomer.setAddress(customer.getAddress());
+            Optional<Customer> optionalCustomer = customerRepository.findById(customer.getCustomerId());
+            Customer updateCustomer = optionalCustomer.get();
             updateCustomer.setCustomerName(customer.getCustomerName());
             order.setCustomer(updateCustomer);
+
+            if(ship != null && ship.getAddressId() != null){
+                Optional<Address> optionalAddress = addressRepository.findById(ship.getAddressId());
+                Address newAddress = optionalAddress.get();
+                order.setShip(newAddress);
+            }else{
+                ship.setCustomerId(customer.getCustomerId());
+                ship = addressRepository.save(ship);
+                order.setShip(ship);
+            }
+
         }else {
-            customer.setAddress(order.getShippingAddress());
             customer = customerRepository.save(customer);
+            ship.setCustomerId(customer.getCustomerId());
+            ship = addressRepository.save(ship);
             order.setCustomer(customer);
+            order.setShip(ship);
         }
 
         for (OrderItem orderItem: order.getOrderItems()) {
             int product = orderItem.getProduct().getProductId();
-            Optional<Product> byIdProduct = productRepository.findById(product);
-            orderItem.setProduct(byIdProduct.get());
+            Optional<Product> optionalProduct = productRepository.findById(product);
+            orderItem.setProduct(optionalProduct.get());
         }
+
         order.setOrderDate(new Date());
         return orderRepository.save(order);
     }
