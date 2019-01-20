@@ -1,1 +1,1 @@
-cd ~/Documents/tx/txcrm & sudo mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=prod"
+cd ~/Documents/tx/txcrm && sudo mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=prod"
