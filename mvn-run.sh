@@ -1,1 +1,1 @@
-cd ~/Documents/tx/txcrm && sudo mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=prod"
+cd ~/Documents/tx/txcrm && mvn clean install && java -Dspring.profiles.active=prod -jar txcrm-0.0.1-SNAPSHOT.jar
