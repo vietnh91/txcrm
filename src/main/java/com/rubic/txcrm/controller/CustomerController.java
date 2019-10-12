@@ -1,5 +1,6 @@
 package com.rubic.txcrm.controller;
 
+import com.rubic.txcrm.model.Condition;
 import com.rubic.txcrm.model.Customer;
 import com.rubic.txcrm.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

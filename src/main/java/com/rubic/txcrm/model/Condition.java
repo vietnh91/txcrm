@@ -1,4 +1,4 @@
-package com.rubic.txcrm.controller;
+package com.rubic.txcrm.model;
 
 public class Condition {
 

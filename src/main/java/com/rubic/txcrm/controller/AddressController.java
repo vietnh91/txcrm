@@ -1,6 +1,7 @@
 package com.rubic.txcrm.controller;
 
 import com.rubic.txcrm.model.Address;
+import com.rubic.txcrm.model.Condition;
 import com.rubic.txcrm.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
